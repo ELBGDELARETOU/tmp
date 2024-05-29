@@ -45,8 +45,10 @@ void	*routine(void *param)
 	info = philo->info_lst;
 	if (philo->philo_id % 2 == 1)
 		sleep_calculator(info, info->philo_t_eat * 0.9);
-	while (info->is_dead != 1)
+	while (info->is_dead != 1 && info->eaten_all != 1)
 	{
+		if (info->must_eat == philo->eaten_meals)
+			info->eaten_all = 1;
 		forks(info, philo);
 		eating(philo);
 		philo_sleeping(info, philo);
