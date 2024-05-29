@@ -35,6 +35,8 @@ void	is_dead(t_info *info)
 		i = 0;
 		while(i < info->total_p_num)
 		{
+			if ( info->eaten_all == 1)
+				return;
 			if (starving(info, &info->philos[i]) == true)
 			{
 				pthread_mutex_lock(&info->checker);
