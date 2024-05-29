@@ -13,7 +13,7 @@ void	philo_sleeping(t_info *info, t_philo *philo)
 {
 	my_printf(info, philo->philo_id,  "is sleeping");
 	sleep_calculator(info, info->philo_t_sleep);
-	my_printf(info, philo->philo_id,  "is sleeping");
+	my_printf(info, philo->philo_id,  "is thinking");
 	if (info->total_p_num % 2 == 1)
 		sleep_calculator(info, info->philo_t_eat);
 	else

@@ -48,11 +48,30 @@ long long	ft_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	my_printf(t_info *info, int i, char *str)
+// void	my_printf(t_info *info, int i, char *str)
+// {
+// 	// pthread_mutex_lock(&info->print);
+// 	// if (info->is_dead == 1)
+// 	// {
+// 	// 	pthread_mutex_unlock(&info->print);
+// 	// 	return;
+// 	// }
+// 	pthread_mutex_unlock(&info->print);
+// 	pthread_mutex_lock(&(info->writing));
+// 	printf("%lld %i %s\n", (ft_time() - info->time), (i + 1), str);
+// 	pthread_mutex_unlock(&(info->writing));
+// }
+
+void my_printf(t_info *info, int i, char *str)
 {
-	if (info->is_dead == 1 || info->eaten_all == 1)
-		return ;
-	pthread_mutex_lock(&(info->writing));
-	printf("%lld %i %s\n", (ft_time() - info->time), (i + 1), str);
-	pthread_mutex_unlock(&(info->writing));
+    pthread_mutex_lock(&info->print);
+    if (info->is_dead == 1)
+    {
+        pthread_mutex_unlock(&info->print);
+        return;
+    }
+    pthread_mutex_unlock(&info->print);
+    pthread_mutex_lock(&(info->writing));
+    printf("%lld %i %s\n", (ft_time() - info->time), (i + 1), str);
+    pthread_mutex_unlock(&(info->writing));
 }

@@ -26,18 +26,6 @@ bool	starving(t_info *info, t_philo *philo)
 	return (false);
 }
 
-bool	finished_eating(t_info *info)
-{
-	pthread_mutex_lock(&info->checker);
-	if (info->must_eat == info->total_p_num)
-	{
-		pthread_mutex_unlock(&info->checker);
-		return (true);
-	}
-	pthread_mutex_unlock(&info->checker);
-	return (false);
-}
-
 void	is_dead(t_info *info)
 {
 	int i;
@@ -47,13 +35,11 @@ void	is_dead(t_info *info)
 		i = 0;
 		while(i < info->total_p_num)
 		{
-			// if(finished_eating(info) == true)
-			// 	return ;
 			if (starving(info, &info->philos[i]) == true)
 			{
 				pthread_mutex_lock(&info->checker);
 				info->is_dead = 1;
-				my_printf(info, i, "is dead");
+				printf("%lld %d is dead\n", (ft_time() - info->time), i + 1);
 				pthread_mutex_unlock(&info->checker);
 				return;
 			}

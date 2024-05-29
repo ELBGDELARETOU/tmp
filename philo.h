@@ -35,7 +35,8 @@ typedef struct t_info
 	int				is_dead;
 	long long		time;
 
-
+	pthread_mutex_t	eaten_all_meals;
+	pthread_mutex_t	print;
 	pthread_mutex_t	checker;
 	pthread_mutex_t	writing;
 	pthread_mutex_t	forks[250];
@@ -52,8 +53,8 @@ void				ft_sleep(long long time, t_info *info);
 void				end_ft(t_info *info, t_philo *philo);
 void				sleep_calculator(t_info *info, unsigned long time_to_wait);
 void				philo_sleeping(t_info *info, t_philo *philo);
-bool				    he_didnt_eat_on_time(t_info *info, t_philo *philo);
-bool			    	finished_eating(t_info *info);
+bool				he_didnt_eat_on_time(t_info *info, t_philo *philo);
+bool			    finished_eating(t_info *info);
 void				is_dead(t_info *info);
 
 
